@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Auctions{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'auctions/global.css' %}" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@200;400;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+    </head>
+    <body>
+       <div class="container">
+        <div>
+            <h1>Auctions</h1>
+            {% if user.is_authenticated %}
+                <p class="authenticated">Signed in as <strong>{{ user.username }}</strong>.</p>
+            {% else %}
+                 <p class="notAuthenticated">Not signed in.</p>
+            {% endif %}
+        </div>
+        <ul class="nav">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                </li>
+            {% else %}
+            <div>
+            <h2>Login</h2>
+
+            {% if message %}
+                <div>{{ message }}</div>
+            {% endif %}
+
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+                <input class="btn btn-secondary form-control" type="submit" value="Login">
+            </form>
+
+            Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+
+        </div>
+
+                <!-- <li class="nav-item">
+                    <a class="nav-link menuLink mr-2 ml-2" href="{% url 'login' %}">Log In</a>
+                </li> -->
+                <!-- <li class="nav-item"> -->
+                    <!-- <a class="nav-link menuLink" href="{% url 'register' %}">Register</a> -->
+                <!-- </li> -->
+            {% endif %}
+        </ul>
+        <hr>
+        {% block body %}
+        {% endblock %}
+        </div>
+    </body>
+</html>

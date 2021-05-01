@@ -1,0 +1,18 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    {% if user.is_authenticated %}
+        <h2>Active Listings</h2>
+    {% else %}
+        <h2>the right plattform to interact with products.</h2>        
+    {% endif %}    
+{% endblock %}
+
+
+<!--  style the css -->
+<!-- already styled the index/login page (merged both) -->
+<!-- next step is decide if it will stay merged, if yes, delete comments on layout and delete the login file and urls.py and views.py -->
+
+<!-- after this, style the logged page -->
+<!-- create model for the products and etc -->

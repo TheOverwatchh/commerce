@@ -1,0 +1,74 @@
+body {
+    padding: 10px;
+    background: #DFDBDB;
+}
+
+.container {
+    background: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    box-shadow: .2rem .2rem 1rem black;
+}
+
+.container h1 {
+    font-family: Antonio, sans-serif;
+    font-size: 5rem;
+    font-weight: 200;
+    color: #c1c1c1;
+}
+
+.container p {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+}
+
+.container p.notAuthenticated {
+    color: #D66464;
+}
+
+.container p.authenticated {
+     color: #5CC165; 
+}
+
+.container p strong {
+    color: #39713E;
+}
+
+.container h2 {
+    font-family: Roboto, sans-serif;
+    color: #906E0C;
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: .1rem;
+}
+
+.container .menuLink {
+    background: #c1c1c1;
+    color: #fff;
+    border-radius: .2rem;
+    box-shadow: .05rem .05rem .15rem black;
+}
+
+.container .menuLink:hover {
+   background: #b4b4b4;
+}
+
+.btn-secondary {
+    background: #c1c1c1;
+    border-radius: .2rem;
+    border: none;
+    font-family: Roboto, sans-serif;
+    font-weight: 200;
+    letter-spacing: .1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    box-shadow: 0.12rem 0.12rem .5rem black;
+    margin-bottom: .5rem;
+}
+
+.btn-secondary:hover {
+    background: #b4b4b4;
+}
