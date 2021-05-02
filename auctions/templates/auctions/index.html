@@ -1,18 +1,52 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+    <ul class="nav">
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+           </li>
 
+        {% else %}
+
+    <div>
+        <h2>Login</h2>
+
+    {% if message %}
+        <div><span style="color:#D66464;font-size:.9rem; font-weight:400;font-family: 'Open Sans Condensed', sans-serif;">{{ message }}</span></div>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+            <input class="btn btn-secondary form-control" type="submit" value="Login">
+    </form>
+
+     Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+
+    </div>
+    {% endif %}
+    </ul>
+    <hr>
     {% if user.is_authenticated %}
         <h2>Active Listings</h2>
     {% else %}
         <h2>the right plattform to interact with products.</h2>        
-    {% endif %}    
+    {% endif %} 
+ 
+</div>
 {% endblock %}
 
 
 <!--  style the css -->
-<!-- already styled the index/login page (merged both) -->
-<!-- next step is decide if it will stay merged, if yes, delete comments on layout and delete the login file and urls.py and views.py -->
-
-<!-- after this, style the logged page -->
+<!-- already styled the index/login page (merged both), deleted the login.html (not needed anymore), changed the majority code from layout.html to index.html, due to optimization -->
+<!-- next style the logged page -->
 <!-- create model for the products and etc -->

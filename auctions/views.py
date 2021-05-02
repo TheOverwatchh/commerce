@@ -19,16 +19,25 @@ def login_view(request):
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
 
+        if username == '': 
+            return render(request, "auctions/index.html", {
+                "message": "You need to fill the required camps."
+            })
+        elif password == '':
+            return render(request, "auctions/index.html", {
+                "message": "You need to fill the required camps"
+            })    
+
         # Check if authentication successful
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "auctions/login.html", {
+            return render(request, "auctions/index.html", {
                 "message": "Invalid username and/or password."
             })
-    else:
-        return render(request, "auctions/login.html")
+    # else:
+    #     return render(request, "auctions/login.html")
 
 
 def logout_view(request):
