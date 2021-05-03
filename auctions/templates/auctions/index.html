@@ -4,10 +4,10 @@
     <ul class="nav">
         {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
+                <a class="nav-link menuLink mr-3" href="{% url 'index' %}">Active Listings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                <a style="background: #E92A2A;" class="nav-link menuLink" href="{% url 'logout' %}">Log Out</a>
            </li>
 
         {% else %}
@@ -38,6 +38,11 @@
     <hr>
     {% if user.is_authenticated %}
         <h2>Active Listings</h2>
+        <ul>
+            {% for auction in auctions %}
+            <li>{{auction.title}}</li>
+            {% endfor %}
+        </ul>
     {% else %}
         <h2>the right plattform to interact with products.</h2>        
     {% endif %} 
