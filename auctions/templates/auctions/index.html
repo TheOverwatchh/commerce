@@ -40,7 +40,19 @@
         <h2>Active Listings</h2>
         <ul>
             {% for auction in auctions %}
-            <li>{{auction.title}}</li>
+            <li style="list-style: none;" class="auctionTable">
+                <div class="row">
+                    <div class="col-md-5 d-none d-md-block">
+                        <img src="{{ auction.img_url }}" alt="">
+                    </div>
+                    <div class="col-md-5 auctionRow">
+                        <h4>{{ auction.title }}</h4>    
+                        <p>Price: <strong>{{ auction.current_price }}</strong></p> 
+                        <span>minimum bid: <small>{{ auction.starting_bid }}</small></span> 
+                    </div>
+                </div>
+
+            </li>
             {% endfor %}
         </ul>
     {% else %}
@@ -51,7 +63,6 @@
 {% endblock %}
 
 
-<!--  style the css -->
-<!-- already styled the index/login page (merged both), deleted the login.html (not needed anymore), changed the majority code from layout.html to index.html, due to optimization -->
-<!-- next style the logged page -->
-<!-- create model for the products and etc -->
+
+<!-- started styling the Li of auction, but needs to finish the styling. (just needs the span and a button to visualize the entry.) -->
+<!-- to style in production, use sass --watch auctionlist.scss auctionlist.css -->

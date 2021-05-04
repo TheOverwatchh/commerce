@@ -1,0 +1,17 @@
+.auctionTable .auctionRow {
+  padding-right: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+}
+.auctionTable .auctionRow h4 {
+  font-family: Montserrat, sans-serif;
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #605757;
+  align-self: center;
+}
+
+/*# sourceMappingURL=auctionlist.css.map */

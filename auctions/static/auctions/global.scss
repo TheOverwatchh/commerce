@@ -50,23 +50,25 @@ body {
                 background: #b4b4b4;
              }
         }
+        .btn-secondary {
+            background: #c1c1c1;
+            border-radius: .2rem;
+            border: none;
+            font-family: Roboto, sans-serif;
+            font-weight: 200;
+            letter-spacing: .1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            box-shadow: 0.12rem 0.12rem .5rem black;
+            margin-bottom: .5rem;
         
-    }
+            &:hover {
+                background: #b4b4b4;
+            }
+        }
 
-    .btn-secondary {
-        background: #c1c1c1;
-        border-radius: .2rem;
-        border: none;
-        font-family: Roboto, sans-serif;
-        font-weight: 200;
-        letter-spacing: .1rem;
-        font-size: 1.2rem;
-        font-weight: 700;
-        box-shadow: 0.12rem 0.12rem .5rem black;
-        margin-bottom: .5rem;
-    
-        &:hover {
-            background: #b4b4b4;
+        li {
+            
         }
     }
 }
