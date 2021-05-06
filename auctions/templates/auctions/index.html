@@ -46,9 +46,13 @@
                         <img src="{{ auction.img_url }}" alt="">
                     </div>
                     <div class="col-md-5 auctionRow">
-                        <h4>{{ auction.title }}</h4>    
-                        <p>Price: <strong>{{ auction.current_price }}</strong></p> 
-                        <span>minimum bid: <small>{{ auction.starting_bid }}</small></span> 
+                        <h4>{{ auction.title }}</h4>  
+                        <div><p>Price: <strong>${{ auction.current_price }}</strong></p></div> 
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="{{ auction.title }}" />
+                            <button type="submit" class="btn btn-secondary" style="font-size: 1rem; font-family: Arial, Helvetica, sans-serif">Visit item</button>
+                        </form>
                     </div>
                 </div>
 
