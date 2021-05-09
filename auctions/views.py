@@ -74,5 +74,8 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
-def auctionPage(request, auctionTitle):
-    return HttpResponseRedirect(reverse("index"))
+def item_page(request, id):
+    item = Auction.objects.get(id=id)
+    return render(request, "auctions/item_page.html", {
+        "i": item,
+    })

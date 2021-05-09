@@ -1,0 +1,32 @@
+{% extends "auctions/layout.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="../../static/auctions/itemPage.css">
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-5">
+        <h1 id="title">{{ i.title }}</h1>
+        <p>created by: <strong>Creator</strong></p>
+        <img src="{{ i.img_url}}">
+    </div>
+
+<div class="col-md-7 itemDetails">
+    <p class="mt-5" id="description">{{ i.description }}</p>
+    <p>Current price: <strong>${{i.current_price}}</strong></p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <button style="margin-left: 2rem; margin-top: 2rem;" type="submit" class="btn btn-warning btn-sm">Add to Watch list<i class="fas fa-eye ml-2"></i></button>
+    </form>    
+    <form action="" method="post">
+    {% csrf_token %}
+    <h4>Make a Bid <small>minimum of <strong>${{ i.starting_bid }}</strong></small></h4>
+    <div class="d-flex align-items-center">
+        <input value="{{i.starting_bid}}" type="number" min="{{ i.starting_bid }}">
+        <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+    </form>
+</div>
+</div>
+{% endblock %}

@@ -1,5 +1,9 @@
 {% extends "auctions/layout.html" %}
 
+{% block head %}   
+        <link href="../../static/auctions/auctionlist.css" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
     <ul class="nav">
         {% if user.is_authenticated %}
@@ -13,7 +17,7 @@
         {% else %}
 
     <div>
-        <h2>Login</h2>
+        <h2 id="login">Login</h2>
 
     {% if message %}
         <div><span style="color:#D66464;font-size:.9rem; font-weight:400;font-family: 'Open Sans Condensed', sans-serif;">{{ message }}</span></div>
@@ -30,7 +34,7 @@
             <input class="btn btn-secondary form-control" type="submit" value="Login">
     </form>
 
-     Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+  Don't have an account? <a style="color: #906E0C;" href="{% url 'register' %}">Register here.</a>
 
     </div>
     {% endif %}
@@ -48,11 +52,7 @@
                     <div class="col-md-5 auctionRow">
                         <h4>{{ auction.title }}</h4>  
                         <div><p>Price: <strong>${{ auction.current_price }}</strong></p></div> 
-                        <form method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="{{ auction.title }}" />
-                            <button type="submit" class="btn btn-secondary" style="font-size: 1rem; font-family: Arial, Helvetica, sans-serif">Visit item</button>
-                        </form>
+                        <a href="{% url 'item_page' auction.id %}"><button class="btn btn-outline-success">Visit page</button></a>
                     </div>
                 </div>
 
@@ -60,13 +60,16 @@
             {% endfor %}
         </ul>
     {% else %}
-        <h2>the right plattform to interact with products.</h2>        
+        <h2 id="login">the right plattform to interact with products.</h2>        
     {% endif %} 
  
 </div>
 {% endblock %}
 
 
+<!-- styled the item page -->
 
-<!-- started styling the Li of auction, but needs to finish the styling. (just needs the span and a button to visualize the entry.) -->
-<!-- to style in production, use sass --watch auctionlist.scss auctionlist.css -->
+<!-- next step is to style the register page -->
+
+<!-- after this we need to start using the user model to creating a item -->
+<!-- after this we need to make the model for bids and implement the working -->
