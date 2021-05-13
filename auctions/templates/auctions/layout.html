@@ -24,6 +24,8 @@
                 <h1 id="logo" style="cursor:pointer">Auctions</h1> 
                 {% if user.is_authenticated %}
                     <p class="authenticated">Signed in as <strong>{{ user.username }}</strong>.</p>
+                {% elif logged == False %}
+                    <p></p>    
                 {% else %}
                     <p class="notAuthenticated">Not signed in.</p>
                 {% endif %}

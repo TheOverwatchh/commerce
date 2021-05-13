@@ -8,7 +8,7 @@ class User(AbstractUser):
 class Auction(models.Model):
     title = models.CharField(max_length=20)
     description = models.CharField(max_length=128)
-    current_price = models.IntegerField()
+    current_price = models.IntegerField(blank=True)
     starting_bid = models.IntegerField()
     img_url = models.CharField(max_length=420)
 

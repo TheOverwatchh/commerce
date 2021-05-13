@@ -41,7 +41,7 @@
     </ul>
     <hr>
     {% if user.is_authenticated %}
-        <h2>Active Listings</h2>
+        <h2 style="color:#906E0C">Active Listings</h2>
         <ul>
             {% for auction in auctions %}
             <li style="list-style: none;" class="auctionTable">
@@ -67,9 +67,5 @@
 {% endblock %}
 
 
-<!-- styled the item page -->
-
-<!-- next step is to style the register page -->
-
-<!-- after this we need to start using the user model to creating a item -->
+<!-- in production: using the user model to create a logic of adding a item (having an issue when submitting the form of creating a listing, needs to be solved)-->
 <!-- after this we need to make the model for bids and implement the working -->

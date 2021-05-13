@@ -71,7 +71,9 @@ def register(request):
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "auctions/register.html")
+        return render(request, "auctions/register.html", {
+        "logged": False
+        })
 
 
 def item_page(request, id):
@@ -79,3 +81,22 @@ def item_page(request, id):
     return render(request, "auctions/item_page.html", {
         "i": item,
     })
+
+
+def createListing(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        description = request.POST["description"]
+        starting_bid = request.POST["starting_bid"]
+        img_url = request.POST["img_url"]
+        # listings = Auction.objects.all()
+        # listingsLength = len(listings)
+        # # Attempt to create new listing
+        # listing = Auction(listingsLength+1 ,title, description, starting_bid ,starting_bid, img_url)
+        # listing.save()
+        # return render(request, "auctions/createlisting.html", {
+            # RETURN TO THE INDEX, WHERE ARE THE LISTINGS
+        # })
+
+    else: 
+        return render(request, "auctions/createlisting.html")
