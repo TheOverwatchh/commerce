@@ -8,6 +8,9 @@
     <ul class="nav">
         {% if user.is_authenticated %}
             <li class="nav-item">
+                <a class="nav-link menuLink mr-3" href="{% url 'createListing' %}">Create Listing</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link menuLink mr-3" href="{% url 'index' %}">Active Listings</a>
             </li>
             <li class="nav-item">
@@ -42,7 +45,7 @@
     <hr>
     {% if user.is_authenticated %}
         <h2 style="color:#906E0C">Active Listings</h2>
-        <ul>
+        <ul class="all-auctions">
             {% for auction in auctions %}
             <li style="list-style: none;" class="auctionTable">
                 <div class="row">
@@ -52,7 +55,7 @@
                     <div class="col-md-5 auctionRow">
                         <h4>{{ auction.title }}</h4>  
                         <div><p>Price: <strong>${{ auction.current_price }}</strong></p></div> 
-                        <a href="{% url 'item_page' auction.id %}"><button class="btn btn-outline-success">Visit page</button></a>
+                        <a href="{% url 'item_page' auction.title %}"><button class="btn btn-outline-success">Visit page</button></a>
                     </div>
                 </div>
 
@@ -67,5 +70,4 @@
 {% endblock %}
 
 
-<!-- in production: using the user model to create a logic of adding a item (having an issue when submitting the form of creating a listing, needs to be solved)-->
-<!-- after this we need to make the model for bids and implement the working -->
+<!-- we need to make the model for bids and implement the working -->

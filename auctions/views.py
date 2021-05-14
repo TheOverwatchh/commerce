@@ -76,8 +76,8 @@ def register(request):
         })
 
 
-def item_page(request, id):
-    item = Auction.objects.get(id=id)
+def item_page(request, title):
+    item = Auction.objects.get(title=title)
     return render(request, "auctions/item_page.html", {
         "i": item,
     })
@@ -85,18 +85,20 @@ def item_page(request, id):
 
 def createListing(request):
     if request.method == "POST":
+        all_listings = Auction.objects.all()
         title = request.POST["title"]
         description = request.POST["description"]
         starting_bid = request.POST["starting_bid"]
         img_url = request.POST["img_url"]
         # listings = Auction.objects.all()
         # listingsLength = len(listings)
-        # # Attempt to create new listing
-        # listing = Auction(listingsLength+1 ,title, description, starting_bid ,starting_bid, img_url)
-        # listing.save()
-        # return render(request, "auctions/createlisting.html", {
-            # RETURN TO THE INDEX, WHERE ARE THE LISTINGS
-        # })
+        #  Attempt to create 
+        listing = Auction(title, description, starting_bid ,starting_bid, img_url)
+        listing.save()
+        return render(request, "auctions/index.html", {
+            "auctions": all_listings
+        })
+       
 
     else: 
         return render(request, "auctions/createlisting.html")

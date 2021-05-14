@@ -6,7 +6,7 @@ class User(AbstractUser):
     pass
 
 class Auction(models.Model):
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=20, primary_key=True)
     description = models.CharField(max_length=128)
     current_price = models.IntegerField(blank=True)
     starting_bid = models.IntegerField()
