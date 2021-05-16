@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Auction
+from .models import User, Auction, Bid, Comment
 
 
 def index(request):
@@ -77,15 +77,31 @@ def register(request):
 
 
 def item_page(request, title):
+
     item = Auction.objects.get(title=title)
+    comments = Comment.objects.all()
     return render(request, "auctions/item_page.html", {
         "i": item,
+        "comments":comments
     })
 
+def createBid(request, title):
+    # pegar o item de acordo com o titulo
+    item = Auction.objects.get(title=title)
+    # alterar o current_price do item
+    item.current_price = request.POST["bid"]
+    item.save()
+    # retornar para a página do item, com o current price alterado
+    return render(request, "auctions/item_page.html", {
+        "i":item
+    })
+
+# def createComment(request, title): 
 
 def createListing(request):
     if request.method == "POST":
         all_listings = Auction.objects.all()
+        creator = request.POST["creator"]
         title = request.POST["title"]
         description = request.POST["description"]
         starting_bid = request.POST["starting_bid"]
@@ -93,7 +109,7 @@ def createListing(request):
         # listings = Auction.objects.all()
         # listingsLength = len(listings)
         #  Attempt to create 
-        listing = Auction(title, description, starting_bid ,starting_bid, img_url)
+        listing = Auction(creator, title, description, starting_bid ,starting_bid, img_url)
         listing.save()
         return render(request, "auctions/index.html", {
             "auctions": all_listings

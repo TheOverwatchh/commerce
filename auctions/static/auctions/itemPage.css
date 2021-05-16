@@ -38,3 +38,24 @@ h1#title {
 .itemDetails small {
     font-size: .7rem;
 }
+
+section#comments h4 {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+section#comments ul{
+ width: 50rem;
+ min-height: 10vh;
+}
+
+section#comments li {
+    list-style-type: square;
+    padding: 1rem;
+    border-bottom: 1px solid #d4d4d4;
+    transition: all .4s 
+}
+
+section#comments li:hover {
+    background: #c1c1c1;
+}

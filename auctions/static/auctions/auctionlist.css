@@ -11,7 +11,7 @@ ul.all-auctions {
   border-bottom: 1px solid #d4d4d4;
 }
 .auctionTable .auctionRow {
-  padding-right: 11rem;
+  padding-right: 1rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -26,8 +26,21 @@ ul.all-auctions {
   font-weight: 700;
   font-size: 2rem;
   color: #605757;
-  align-self: center;
+  align-self: flex-start;
 }
+
+.auctionTable .auctionRow small {
+  max-width: 110%;
+  max-height: 40%;
+  white-space:pre-wrap;
+  letter-spacing: .05rem;
+  color: #393939;
+  font-size: .9rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .auctionTable .auctionRow p {
   width: 15vw;
 }
