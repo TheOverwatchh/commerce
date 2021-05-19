@@ -33,24 +33,27 @@
 <section id="comments">
     <h4>Comments</h4>
     <ul class="border mb-0">
-        <li>
-            <span class="h6">MicaelTargino</span>: <span>Unfortunately, the auction closed before i made the bid.</span>
-        </li>
-        <li>
-            <span class="h6">MicaelTargino</span>: <span>Unfortunately, the auction closed before i made the bid.</span>
-        </li>
-        <li>
-            <span class="h6">MicaelTargino</span>: <span>Unfortunately, the auction closed before i made the bid.</span>
-        </li>
-        <li>
-            <span class="h6">MicaelTargino</span>: <span>Unfortunately, the auction closed before i made the bid.</span>
-        </li>
-        <li>
-            <span class="h6">MicaelTargino</span>: <span>Unfortunately, the auction closed before i made the bid.</span>
-        </li>
+        outside for
+        {% for comment in comments %}
+        inside for
+            <li>
+                <span class="h6">{{comment.creator}}</span>: <span>{{ comment.comment }}</span>
+            </li>
+        {% endfor %}
     </ul>
-    <form action="{% createComment i.title %}" method="post">
-        <button class="btn btn-info form-control btn-lg mb-5" style="padding-bottom: 2.3rem;">Place your comment</button>
+    <form action="{% url 'createComment' i.title%}" method="post" class="border d-flex flex-column align-items-center justify-contents-between">
+        {% csrf_token %}
+        <h2 class="mt-3">Give this item a comment</h2>
+        <div class="d-flex align-items-center justify-content-center border-bottom m-3">
+            <label for="creator" class="m-3">Your name:</label>
+            <input id="creator" name="creator" type="text" value="{{ user }}" class="mt-5 mb-5">
+
+        </div>
+        <div class="d-flex align-items-start justify-content-center">
+            <label for="comment" class="m-3">Your text:</label>
+            <textarea id="comment" name="content" placeholder="Text your comment here (max of 980 caracters)"></textarea>
+        </div>
+        <button class="btn btn-info form-control btn-lg m-5" style="padding-bottom: 2.3rem;">Place your comment</button>
     </form>
 </section>
 {% endblock %}

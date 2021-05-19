@@ -96,7 +96,26 @@ def createBid(request, title):
         "i":item
     })
 
-# def createComment(request, title): 
+def createComment(request, title):
+    itemTitle = title
+    item = Auction.objects.get(title=title)
+    comments = Comment.objects.all()
+    if request.method == "POST":
+        creator = request.POST["creator"]
+        comment = request.POST["content"]
+        Comment(creator, comment, item)
+        newComments = Comment.objects.all()
+        return render(request, "auctions/item_page.html", {
+            "i": item,
+            "comments":newComments
+        })
+    else:
+        return render(request, "auctions/item_page.html", {
+            "i": item,
+            "comments":comments
+        })
+        
+
 
 def createListing(request):
     if request.method == "POST":

@@ -59,3 +59,31 @@ section#comments li {
 section#comments li:hover {
     background: #c1c1c1;
 }
+
+section#comments form div {
+    width: 100%;
+}
+section#comments form label {
+    font-size: 1rem;
+    font-family: Montserrat, sans-serif;
+    font-weight: 300;
+}
+
+section#comments form input {
+    width: 50%;
+    padding: .25rem;
+    font-size: .9rem;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    color: #8a8a8a;
+}
+
+section#comments form textarea {
+    width:50%;
+    height: 10rem;
+    padding: .5rem;
+    font-size: .9rem;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    color: #8a8a8a;
+}
