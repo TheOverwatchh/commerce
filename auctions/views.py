@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from .models import User, Auction, Bid, Comment
@@ -97,23 +97,33 @@ def createBid(request, title):
     })
 
 def createComment(request, title):
-    itemTitle = title
-    item = Auction.objects.get(title=title)
-    comments = Comment.objects.all()
     if request.method == "POST":
-        creator = request.POST["creator"]
-        comment = request.POST["content"]
-        Comment(creator, comment, item)
-        newComments = Comment.objects.all()
-        return render(request, "auctions/item_page.html", {
-            "i": item,
-            "comments":newComments
-        })
-    else:
-        return render(request, "auctions/item_page.html", {
-            "i": item,
-            "comments":comments
-        })
+        c = Comment()
+        c.comment = request.POST.get('content')
+        c.creator = request.POST["creator"]
+        c.listing = title
+        c.save()
+        return redirect('item_page',title=title)
+    else :
+        return redirect('index')
+    pass
+    # itemTitle = title
+    # item = Auction.objects.get(title=title)
+    # comments = Comment.objects.all()
+    # if request.method == "POST":
+    #     creator = request.POST["creator"]
+    #     comment = request.POST["content"]
+    #     Comment(creator, comment, item)
+    #     newComments = Comment.objects.all()
+    #     return render(request, "auctions/item_page.html", {
+    #         "i": item,
+    #         "comments":newComments
+    #     })
+    # else:
+    #     return render(request, "auctions/item_page.html", {
+    #         "i": item,
+    #         "comments":comments
+        # })
         
 
 

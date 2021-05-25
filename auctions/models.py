@@ -25,9 +25,9 @@ class Bid(models.Model):
         return f"{self.creator} made a bit of ${self.price}."
 
 class Comment(models.Model):
-    creator = models.CharField(max_length=20, default="Unknown")
-    comment = models.CharField(max_length=980)
-    auctionReferent = models.ForeignKey(Auction, on_delete=models.CASCADE)
+    creator = models.CharField(max_length=64, default="UnknownCreator")
+    comment = models.TextField()
+    listing = models.CharField(max_length=64,default="UnknownListing",null=False)
 
     def __str__(self):
-        return f"{self.creator}: {self.comment} in {self.auctionReferent}"
+        return f"{self.creator}: {self.comment} in {self.listing}"
