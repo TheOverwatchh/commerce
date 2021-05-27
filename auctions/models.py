@@ -24,7 +24,14 @@ class Bid(models.Model):
     def __str__(self): 
         return f"{self.creator} made a bit of ${self.price}."
 
+class WatchList(models.Model):
+    id = models.CharField(max_length=24, null=False ,default="UnknownId", primary_key=True)
+    username = models.CharField(max_length=24, null=False ,default="UnknownUser")
+    listing = models.CharField(max_length=64, null=False, default="UnknownListing")
+
 class Comment(models.Model):
+
+
     creator = models.CharField(max_length=64, default="UnknownCreator")
     comment = models.TextField()
     listing = models.CharField(max_length=64,default="UnknownListing",null=False)

@@ -3,8 +3,9 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
-from .models import User, Auction, Bid, Comment
+import random
+import string
+from .models import User, Auction, Bid, Comment, WatchList
 
 
 def index(request):
@@ -79,7 +80,7 @@ def register(request):
 def item_page(request, title):
 
     item = Auction.objects.get(title=title)
-    comments = Comment.objects.all()
+    comments = Comment.objects.filter(listing=title)
     return render(request, "auctions/item_page.html", {
         "i": item,
         "comments":comments
@@ -106,28 +107,25 @@ def createComment(request, title):
         return redirect('item_page',title=title)
     else :
         return redirect('index')
-    pass
-    # itemTitle = title
-    # item = Auction.objects.get(title=title)
-    # comments = Comment.objects.all()
-    # if request.method == "POST":
-    #     creator = request.POST["creator"]
-    #     comment = request.POST["content"]
-    #     Comment(creator, comment, item)
-    #     newComments = Comment.objects.all()
-    #     return render(request, "auctions/item_page.html", {
-    #         "i": item,
-    #         "comments":newComments
-    #     })
-    # else:
-    #     return render(request, "auctions/item_page.html", {
-    #         "i": item,
-    #         "comments":comments
-        # })
         
-
+def addWatchList(request, title):
+    item = Auction.objects.get(title=title)
+    comments = Comment.objects.filter(listing=title)
+    userName = request.user.username
+    randomic = ''.join([random.choice(string.ascii_letters
+            + string.digits) for n in range(24)])
+ 
+    w = WatchList(randomic, userName, title)
+    w.save()
+    return render(request, "auctions/item_page.html", {
+        "i": item,
+        "comments":comments,
+        "inWatch": True
+    })
+    
 
 def createListing(request):
+
     if request.method == "POST":
         all_listings = Auction.objects.all()
         creator = request.POST["creator"]
