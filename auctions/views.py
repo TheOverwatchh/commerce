@@ -42,11 +42,24 @@ def login_view(request):
     # else:
     #     return render(request, "auctions/login.html")
 
-
+def seeWatchList(request):
+    user = request.user.username
+    wl = WatchList.objects.filter(username=user)
+    for w in wl:
+        itemList = Auction.objects.filter(title=w.listing)
+    if itemList:    
+        return render(request, "auctions/watch-list.html", {
+        "watchList": wl,
+        "itemList": itemList
+    })
+    else: 
+        return render(request, "auctions/watch-list.html", {
+        "watchList": wl,
+        "message": "You don't have items on the watch list yet."
+        })
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
-
 
 def register(request):
     if request.method == "POST":
@@ -76,14 +89,14 @@ def register(request):
         "logged": False
         })
 
-
 def item_page(request, title):
 
     item = Auction.objects.get(title=title)
     comments = Comment.objects.filter(listing=title)
     return render(request, "auctions/item_page.html", {
         "i": item,
-        "comments":comments
+        "comments":comments,
+        "inWatch": False
     })
 
 def createBid(request, title):
@@ -114,16 +127,33 @@ def addWatchList(request, title):
     userName = request.user.username
     randomic = ''.join([random.choice(string.ascii_letters
             + string.digits) for n in range(24)])
- 
+
+    # if len(WatchList.objects.get(listing=title, username=request.user.username)) >= 1:   
+    #     return render(request, "auctions/item_page.html", {
+    #         "i": item,
+    #         "comments":comments,
+    #         "inWatch": False
+    #     })     
+    # else:    
     w = WatchList(randomic, userName, title)
     w.save()
     return render(request, "auctions/item_page.html", {
+            "i": item,
+            "comments":comments,
+            "inWatch": True
+        })
+
+def removeWatchList(request, title):
+    item = Auction.objects.get(title=title)
+    comments = Comment.objects.filter(listing=title)
+    w = WatchList.objects.get(listing=title, username=request.user.username)
+    w.delete()
+    return render(request, "auctions/item_page.html", {
         "i": item,
         "comments":comments,
-        "inWatch": True
-    })
+        "inWatch": False
+    })    
     
-
 def createListing(request):
 
     if request.method == "POST":

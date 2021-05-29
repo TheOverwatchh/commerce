@@ -10,6 +10,8 @@ urlpatterns = [
     path("register", views.register, name="register"),
     path("items/<str:title>/making-a-bid", views.createBid, name="createBid"),
     path("comment/<str:title>", views.createComment, name="createComment"),
-    path("items/<str:title>/Add-Watch-List", views.addWatchList, name="addWatchList"),
+    path("items/<str:title>/add-watch-list", views.addWatchList, name="addWatchList"),
+    path("items/<str:title>/remove-watch-list", views.removeWatchList, name="removeWatchList"),
+    path("/watch-list", views.seeWatchList, name="SeeWatchList"),
     path("create", views.createListing, name="createListing")
 ]

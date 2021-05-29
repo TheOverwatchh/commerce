@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block head%}
+    <link href="../../static/auctions/auctionlist.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+        {% for auction in itemList %}
+            <li style="list-style: none;" class="auctionTable">
+                <div class="row">
+                    <div class="col-md-5 d-none d-md-block">
+                        <img src="{{ auction.img_url }}" alt="">
+                    </div>
+                    <div class="col-md-5 auctionRow">
+                        <h4>{{ auction.title }}</h4>  
+                        <small>{{ auction.description }}</small>
+                        <div><p>Price: <strong>${{ auction.current_price }}</strong></p></div> 
+                        <a href="{% url 'item_page' auction.title %}"><button class="btn btn-outline-success">Visit page</button></a>
+                    </div>
+                </div>
+
+            </li>
+            {% endfor %}
+{% endblock %}

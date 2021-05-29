@@ -7,6 +7,9 @@
 {% block body %}
     <ul class="nav">
         {% if user.is_authenticated %}
+             <li class="nav-item">
+                <a class="nav-link menuLink mr-3" href="{% url 'SeeWatchList' %}">WatchList</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link menuLink mr-3" href="{% url 'createListing' %}">Create Listing</a>
             </li>
@@ -73,7 +76,7 @@
 <!-- next implementations:
 
     * implement the watchList implementation 
-        - I already created the logic of the model and the adding to the watchlist, needs to change the button to "remove from watchlist" if the item is alreandy on watchlist
+        - already made the alterning button, and started the watchlist page
         - final step is creating the page "WatchList" where stays all the items in the watchlist of the user
 
 

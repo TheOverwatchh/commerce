@@ -15,10 +15,18 @@
 <div class="col-md-7 itemDetails">
     <p class="mt-5" id="description">{{ i.description }}</p>
     <p>Current price: <strong>${{i.current_price}}</strong></p>
-    <form action="{% url 'addWatchList' i.title %}" method="post">
-        {% csrf_token %}
-        <button style="margin-left: 2rem; margin-top: 2rem;" type="submit" class="btn btn-warning btn-sm">Add to Watch list<i class="fas fa-eye ml-2"></i></button>
-    </form>    
+            {% if inWatch %}
+            <form action="{% url 'removeWatchList' i.title %}" method="post">
+            {% csrf_token %}
+            <button style="margin-left: 2rem; margin-top: 2rem;" type="submit" class="btn btn-danger btn-sm">Remove from Watch list<i class="fas fa-eye ml-2"></i></button> 
+            </form> 
+            {% else %}
+            <form action="{% url 'addWatchList' i.title %}" method="post">
+            {% csrf_token %}
+            <button style="margin-left: 2rem; margin-top: 2rem;" type="submit" class="btn btn-warning btn-sm">Add to Watch list<i class="fas fa-eye ml-2"></i></button> 
+            </form> 
+        {% endif %}
+       
     <form action="{% url 'createBid' i.title %}" method="post">
     {% csrf_token %}
     <h4>Make a Bid <small>minimum of <strong>${{ i.current_price}}</strong></small></h4>
