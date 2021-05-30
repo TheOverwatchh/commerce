@@ -6,6 +6,13 @@ h1#title {
     font-weight: 400;
 }
 
+div#details {
+    padding: 1rem;
+    width: 95%;
+    background: #a5a5a5;  /* fallback for old browsers */
+    box-shadow: 1rem 1rem 1rem grey;
+}
+
 .itemDetails {
     display: flex;
     flex-direction: column;
@@ -18,6 +25,9 @@ h1#title {
 }
 
 .itemDetails p#description {
+    width: 95%;
+    height: auto;
+    white-space: pre-wrap;
     font-family: Roboto, sans-serif;
     font-weight: 300;
 }
@@ -39,8 +49,14 @@ h1#title {
     font-size: .7rem;
 }
 
+section#comments {
+    background: #a5a5a5;  /* fallback for old browsers */
+    box-shadow: 1rem 1rem 1rem grey;
+    margin-bottom: 2rem;
+}
+
 section#comments h4 {
-    margin-top: 3rem;
+    margin-top: 1rem;
     text-align: center;
 }
 

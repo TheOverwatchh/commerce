@@ -34,14 +34,14 @@
             </div>
             <ul class="nav" style="margin-bottom: 5rem;">
                 {% if user.is_authenticated %}
-                     <li class="nav-item">
-                        <a class="nav-link menuLink mr-3" href="{% url 'SeeWatchList' user.username %}">WatchList</a>
+                    <li class="nav-item">
+                        <a class="nav-link menuLink mr-3" href="{% url 'index' %}">Active Listings</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link menuLink mr-3" href="{% url 'createListing' %}">Create Listing</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link menuLink mr-3" href="{% url 'index' %}">Active Listings</a>
+                     <li class="nav-item">
+                        <a class="nav-link menuLink mr-3" href="{% url 'SeeWatchList' user.username %}">WatchList<i class="fas fa-eye ml-2"></i></a>
                     </li>
                     <li class="nav-item">
                         <a style="background: #E92A2A;" class="nav-link menuLink" href="{% url 'logout' %}">Log Out</a>
