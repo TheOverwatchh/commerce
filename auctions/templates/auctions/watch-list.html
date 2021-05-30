@@ -6,20 +6,37 @@
 
 
 {% block body %}
-        {% for auction in itemList %}
-            <li style="list-style: none;" class="auctionTable">
-                <div class="row">
-                    <div class="col-md-5 d-none d-md-block">
-                        <img src="{{ auction.img_url }}" alt="">
+        <div>
+        <h2 class="mb-5" style="color:#906E0C">WatchList</h2>
+            
+        
+        </div>
+        <div id="listings">
+            <ul class="all-auctions">
+                {% for item in items %}
+                {% for i in item %}
+                <li style="list-style: none;" class="auctionTable">
+                    <div class="row">
+                        <div class="col-md-5 d-none d-md-block">
+                            <img src="{{ i.img_url }}" alt="">
+                        </div>
+                        <div class="col-md-5 auctionRow">
+                            <h4>{{ i.title }}</h4>  
+                            <small>{{ i.description }}</small>
+                            <div><p>Price: <strong>${{ i.current_price }}</strong></p></div> 
+                            <form action="{% url 'item_page' i.title %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="wStatus" value="True" >
+                                <button class="btn btn-outline-success">Visit page</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="col-md-5 auctionRow">
-                        <h4>{{ auction.title }}</h4>  
-                        <small>{{ auction.description }}</small>
-                        <div><p>Price: <strong>${{ auction.current_price }}</strong></p></div> 
-                        <a href="{% url 'item_page' auction.title %}"><button class="btn btn-outline-success">Visit page</button></a>
-                    </div>
-                </div>
-
-            </li>
-            {% endfor %}
+    
+                </li>
+                {% endfor %} 
+                {% empty %}
+                <h3 style="margin-top: 10rem">No listings found in your watchlist...</h3>
+                {% endfor %}
+            </ul>
+        </div>
 {% endblock %}

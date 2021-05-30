@@ -5,46 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <ul class="nav">
-        {% if user.is_authenticated %}
-             <li class="nav-item">
-                <a class="nav-link menuLink mr-3" href="{% url 'SeeWatchList' %}">WatchList</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menuLink mr-3" href="{% url 'createListing' %}">Create Listing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menuLink mr-3" href="{% url 'index' %}">Active Listings</a>
-            </li>
-            <li class="nav-item">
-                <a style="background: #E92A2A;" class="nav-link menuLink" href="{% url 'logout' %}">Log Out</a>
-           </li>
-
-        {% else %}
-
-    <div>
-        <h2 id="login">Login</h2>
-
-    {% if message %}
-        <div><span style="color:#D66464;font-size:.9rem; font-weight:400;font-family: 'Open Sans Condensed', sans-serif;">{{ message }}</span></div>
-    {% endif %}
-
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input autofocus class="form-control" type="text" name="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-            <input class="btn btn-secondary form-control" type="submit" value="Login">
-    </form>
-
-  Don't have an account? <a style="color: #906E0C;" href="{% url 'register' %}">Register here.</a>
-
-    </div>
-    {% endif %}
-    </ul>
+   
     <hr>
     {% if user.is_authenticated %}
         <h2 class="mb-5" style="color:#906E0C">Active Listings</h2>
@@ -74,17 +35,6 @@
 {% endblock %}
 
 <!-- next implementations:
-
-    * implement the watchList implementation 
-        - already made the alterning button, and started the watchlist page
-        - final step is creating the page "WatchList" where stays all the items in the watchlist of the user
-
-
-
-
-
-
-
 
     * implement the ability to close a listing (if you're the creator) and the listing stays no more active and the highest bid wins
     * create a category, where it is specified in the creation of the bid 

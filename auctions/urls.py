@@ -12,6 +12,6 @@ urlpatterns = [
     path("comment/<str:title>", views.createComment, name="createComment"),
     path("items/<str:title>/add-watch-list", views.addWatchList, name="addWatchList"),
     path("items/<str:title>/remove-watch-list", views.removeWatchList, name="removeWatchList"),
-    path("/watch-list", views.seeWatchList, name="SeeWatchList"),
+    path("watch-list/<str:username>", views.seeWatchList, name="SeeWatchList"),
     path("create", views.createListing, name="createListing")
 ]

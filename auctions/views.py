@@ -42,21 +42,16 @@ def login_view(request):
     # else:
     #     return render(request, "auctions/login.html")
 
-def seeWatchList(request):
-    user = request.user.username
-    wl = WatchList.objects.filter(username=user)
-    for w in wl:
-        itemList = Auction.objects.filter(title=w.listing)
-    if itemList:    
-        return render(request, "auctions/watch-list.html", {
-        "watchList": wl,
-        "itemList": itemList
-    })
-    else: 
-        return render(request, "auctions/watch-list.html", {
-        "watchList": wl,
-        "message": "You don't have items on the watch list yet."
-        })
+def seeWatchList(request, username):
+            w = WatchList.objects.filter(username=username)
+            items = []
+            for i in w:
+                items.append(Auction.objects.filter(title=i.listing))
+                w = WatchList.objects.filter(username=request.user.username)
+            return render(request,"auctions/watch-list.html",{
+                "items":items,
+            })
+     
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
@@ -90,14 +85,21 @@ def register(request):
         })
 
 def item_page(request, title):
-
-    item = Auction.objects.get(title=title)
-    comments = Comment.objects.filter(listing=title)
-    return render(request, "auctions/item_page.html", {
-        "i": item,
-        "comments":comments,
-        "inWatch": False
-    })
+     item = Auction.objects.get(title=title)
+     comments = Comment.objects.filter(listing=title)
+     w = WatchList.objects.filter(listing=title)
+     if w:
+        return render(request, "auctions/item_page.html", {
+            "i": item,
+            "comments":comments,
+            "inWatch": True
+        })
+     else: 
+          return render(request, "auctions/item_page.html", {
+            "i": item,
+            "comments":comments,
+            "inWatch": False
+        })   
 
 def createBid(request, title):
     # pegar o item de acordo com o titulo
