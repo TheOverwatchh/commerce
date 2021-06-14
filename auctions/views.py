@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 import random
 import string
-from .models import User, Auction, Bid, Comment, WatchList
+from .models import User, Auction, Bid, Comment, WatchList, ClosedBid
 
 
 def index(request):
@@ -88,25 +88,39 @@ def item_page(request, title):
      item = Auction.objects.get(title=title)
      comments = Comment.objects.filter(listing=title)
      w = WatchList.objects.filter(listing=title)
+     try:
+         cbid = ClosedBid.objects.get(listing=title)
+     except:
+         cbid = False    
+     if cbid:
+         closed = True
+         winner = cbid.winner 
+     else:
+         closed = False 
+         winner = "Someone"   
      if w:
-        return render(request, "auctions/item_page.html", {
+         watchList = True
+     else:
+         watchList = False       
+     return render(request, "auctions/item_page.html", {
             "i": item,
             "comments":comments,
-            "inWatch": True
-        })
-     else: 
-          return render(request, "auctions/item_page.html", {
-            "i": item,
-            "comments":comments,
-            "inWatch": False
-        })   
-
+            "inWatch": watchList,
+            "closed": closed,
+            "winner": winner
+     })
+       
 def createBid(request, title):
     # pegar o item de acordo com o titulo
     item = Auction.objects.get(title=title)
     # alterar o current_price do item
     item.current_price = request.POST["bid"]
     item.save()
+    b = Bid()
+    b.creator = request.user.username
+    b.price = request.POST["bid"]
+    b.listing = item
+    b.save()
     # retornar para a página do item, com o current price alterado
     return render(request, "auctions/item_page.html", {
         "i":item
@@ -142,7 +156,8 @@ def addWatchList(request, title):
     return render(request, "auctions/item_page.html", {
             "i": item,
             "comments":comments,
-            "inWatch": True
+            "inWatch": True,
+            "closed":False
         })
 
 def removeWatchList(request, title):
@@ -150,11 +165,19 @@ def removeWatchList(request, title):
     comments = Comment.objects.filter(listing=title)
     w = WatchList.objects.get(listing=title, username=request.user.username)
     w.delete()
+    # if to == 'IP': 
     return render(request, "auctions/item_page.html", {
-        "i": item,
-        "comments":comments,
-        "inWatch": False
-    })    
+            "i": item,
+            "comments":comments,
+            "inWatch": False,
+            "closed":False
+        }) 
+    # else: 
+    #     return render(request, "auctions/watch-list.html", {
+    #         "i": item,
+    #         "comments":comments,
+    #         "inWatch": False
+    #     })       
     
 def createListing(request):
 
@@ -177,3 +200,47 @@ def createListing(request):
 
     else: 
         return render(request, "auctions/createlisting.html")
+
+def closeListing(request, title):
+    if request.user.username:
+            listingrow = Auction.objects.get(title=title)
+            cb = ClosedBid()
+            title = listingrow.title
+            cb.owner = listingrow.creator
+            cb.listing = title
+            bidrow = Bid.objects.get(listing=title,price=listingrow.current_price)
+            cb.winner = bidrow.creator
+            cb.winprice = bidrow.price
+            cb.save()
+            if WatchList.objects.filter(listing=title):
+                watchrow = WatchList.objects.filter(listing=title)
+                watchrow.delete()
+            else:
+                pass
+    
+            crow = Comment.objects.filter(listing=title)
+            crow.delete()
+            listingrow.closed = True
+            listingrow.save()
+            # auction = Auction.objects.get(title=title)
+            # auction.closed = True
+            # auction.save()
+            # w = WatchList.objects.filter(username=request.user.username) 
+            return render(request, "auctions/item_page.html",{
+                "i": listingrow,
+                "inWatch": False,
+                "closed": True,
+                "winner": bidrow.creator
+            })
+    else:
+        return redirect('index')     
+
+def winnings(request, user):
+        cb = ClosedBid.objects.filter(winner=user)
+        items = []
+        for i in cb:
+            items.append(Auction.objects.filter(title=i.listing))
+            #w = WatchList.objects.filter(username=request.user.username)
+        return render(request,"auctions/winningpage.html",{
+                "items":items,
+        })

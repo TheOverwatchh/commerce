@@ -1,0 +1,43 @@
+{% extends "auctions/layout.html" %}
+
+{% block head %}
+    <link href="../../static/auctions/auctionlist.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h2 class="mb-5" style="color:#906E0C">My Winnings<i class="fas fa-trophy ml-3"></i></h2>
+        
+    
+    </div>
+    <div id="listings">
+        <ul class="all-auctions">
+            {% for item in items %}
+            {% for i in item %}
+            <li style="list-style: none;" class="auctionTable">
+                <div id="item" class="row">
+                    <div class="col-md-5 d-none d-md-block">
+                        <img src="{{ i.img_url }}" alt="">
+                    </div>
+                    <div class="col-md-5 auctionRow pl-4">
+                        <h4>{{ i.title }}</h4>  
+                        <small>{{ i.description }}</small>
+                        <div><p>Price: <strong>${{ i.current_price }}</strong></p></div> 
+                       <div class="d-flex">
+                        <form action="{% url 'item_page' i.title %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="wStatus" value="True" >
+                            <button class="btn btn-outline-success b" style="width: 200%; font-size: .8rem;">Visit page</button>
+                        </form>
+                       </div>
+                    </div>
+                </div>
+
+            </li>
+            {% endfor %} 
+            {% empty %}
+            <h3 style="margin-top: 10rem">No winnings yet...</h3>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

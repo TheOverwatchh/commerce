@@ -6,10 +6,28 @@ h1#title {
     font-weight: 400;
 }
 
-div#details {
+div#detailsOpen {
     padding: 1rem;
     width: 95%;
-    background: #a5a5a5;  /* fallback for old browsers */
+    background: #a5a5a5; 
+    box-shadow: 1rem 1rem 1rem grey;
+}
+
+div#detailsClosed {
+    padding: 1rem;
+    width: 95%;
+    background: #a5a5a5; 
+    box-shadow: 1rem 1rem 1rem grey;
+    opacity: 0.5;
+    position: relative;
+}
+
+
+h2#closedInfo {
+    position: absolute;
+    top: 48%;
+    padding: 1rem;
+    background: #5CC165;
     box-shadow: 1rem 1rem 1rem grey;
 }
 
@@ -102,4 +120,13 @@ section#comments form textarea {
     font-family: Roboto, sans-serif;
     font-weight: 400;
     color: #8a8a8a;
+}
+i.closeb {
+    color: #B32000;
+    transition: all .3s;
+}
+
+i.closeb:hover {
+    font-size: 1.5rem;
+    color: #E92A2A;
 }

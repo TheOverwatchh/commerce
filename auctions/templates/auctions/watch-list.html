@@ -7,7 +7,7 @@
 
 {% block body %}
         <div>
-        <h2 class="mb-5" style="color:#906E0C">WatchList</h2>
+        <h2 class="mb-5" style="color:#906E0C">WatchList<i class="fas fa-eye ml-3"></i></h2>
             
         
         </div>
@@ -24,11 +24,18 @@
                             <h4>{{ i.title }}</h4>  
                             <small>{{ i.description }}</small>
                             <div><p>Price: <strong>${{ i.current_price }}</strong></p></div> 
+                           <div class="d-flex">
                             <form action="{% url 'item_page' i.title %}">
                                 {% csrf_token %}
                                 <input type="hidden" name="wStatus" value="True" >
-                                <button class="btn btn-outline-success">Visit page</button>
+                                <button class="btn btn-outline-success b">Visit page</button>
                             </form>
+                            <form action="{% url 'removeWatchList' i.title%}">
+                                {% csrf_token %}
+                                <input type="hidden" name="wStatus" value="True" >
+                                <button class="btn btn-outline-danger b">Stop Watching</button>
+                            </form>
+                           </div>
                         </div>
                     </div>
     

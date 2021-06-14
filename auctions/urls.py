@@ -13,5 +13,7 @@ urlpatterns = [
     path("items/<str:title>/add-watch-list", views.addWatchList, name="addWatchList"),
     path("items/<str:title>/remove-watch-list", views.removeWatchList, name="removeWatchList"),
     path("watch-list/<str:username>", views.seeWatchList, name="SeeWatchList"),
-    path("create", views.createListing, name="createListing")
+    path("create", views.createListing, name="createListing"),
+    path("closebid/<str:title>",views.closeListing,name="closeListing"),
+    path("<str:user>/winnings", views.winnings, name="Winnings")
 ]

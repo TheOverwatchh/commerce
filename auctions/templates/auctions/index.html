@@ -11,20 +11,24 @@
         <h2 class="mb-5" style="color:#906E0C">Active Listings</h2>
         <ul class="all-auctions">
             {% for auction in auctions %}
-            <li style="list-style: none;" class="auctionTable">
-                <div class="row">
-                    <div class="col-md-5 d-none d-md-block">
-                        <img src="{{ auction.img_url }}" alt="">
+                    <li style="list-style: none;" class="auctionTable">
+                    <div id="item" class="row">
+                        <div class="col-md-5 d-none d-md-block">
+                            <img src="{{ auction.img_url }}" alt="">
+                        </div>
+                        <div class="col-md-5 auctionRow">
+                            <h4>{{ auction.title }}</h4>  
+                            <small>{{ auction.description }}</small>
+                            {% if auction.closed == 'True' %}
+                                <p style="margin-top: .7rem; color:#D66464">this item is no longer available.</p>
+                            {% else %}
+                                <span></span>
+                            {% endif %}    
+                            <div><p>Price: <strong>${{ auction.current_price }}</strong></p></div> 
+                            <a href="{% url 'item_page' auction.title %}"><button class="btn btn-outline-success">Visit page</button></a>
+                        </div>
                     </div>
-                    <div class="col-md-5 auctionRow">
-                        <h4>{{ auction.title }}</h4>  
-                        <small>{{ auction.description }}</small>
-                        <div><p>Price: <strong>${{ auction.current_price }}</strong></p></div> 
-                        <a href="{% url 'item_page' auction.title %}"><button class="btn btn-outline-success">Visit page</button></a>
-                    </div>
-                </div>
-
-            </li>
+                    </li>
             {% endfor %}
         </ul>
     {% else %}
@@ -35,8 +39,6 @@
 {% endblock %}
 
 <!-- next implementations:
-
-    * implement the ability to close a listing (if you're the creator) and the listing stays no more active and the highest bid wins
     * create a category, where it is specified in the creation of the bid 
     * implement the search of a item, being able to type the title and filter a category
 -->

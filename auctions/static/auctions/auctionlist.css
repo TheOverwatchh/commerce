@@ -1,5 +1,5 @@
 ul.all-auctions {
-  height: 80vh;
+  height: 90vh;
   white-space: nowrap;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -10,6 +10,11 @@ ul.all-auctions {
   padding-bottom: 1rem;
   border-bottom: 1px solid #d4d4d4;
 }
+
+div#item {
+  gap: 1rem;
+} 
+
 .auctionTable .auctionRow {
   padding-right: 1rem;
   display: flex;
@@ -46,6 +51,11 @@ ul.all-auctions {
 }
 .auctionTable .auctionRow button {
   width: 15vw;
+}
+
+.auctionTable .auctionRow button.b {
+ width: 10vw;
+ font-size: .75rem;
 }
 
 /*# sourceMappingURL=auctionlist.css.map */
