@@ -9,3 +9,10 @@ h2.gold {
 .gold {
     color: #906E0C;
 }
+
+label#cat {
+    color: #787878;
+    letter-spacing: .01rem;
+    font-weight: 500;
+    
+}

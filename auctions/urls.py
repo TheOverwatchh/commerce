@@ -15,5 +15,7 @@ urlpatterns = [
     path("watch-list/<str:username>", views.seeWatchList, name="SeeWatchList"),
     path("create", views.createListing, name="createListing"),
     path("closebid/<str:title>",views.closeListing,name="closeListing"),
-    path("<str:user>/winnings", views.winnings, name="Winnings")
+    path("<str:user>/winnings", views.winnings, name="Winnings"),
+    path("filter", views.filter, name="filter"),
+
 ]

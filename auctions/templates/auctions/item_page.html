@@ -11,7 +11,7 @@
         <div class="col-md-5">
             <h1 id="title">{{ i.title }}</h1>
             <p>created by: <strong>{{ i.creator }}</strong></p>
-            <img src="{{ i.img_url}}">
+            <img src="{{ i.img_url}}" width="200" height="200">
             <input type="hidden" id="titleListing" value="{{ i.title }}">
         </div>
 
@@ -44,9 +44,10 @@
     {% else %}
     <div id="detailsOpen" class="row mb-5">
         <div class="col-md-5">
+            <h6>in <u>{{ i.category }}</u>:</h6>
             <h1 id="title">{{ i.title }}</h1>
             <p>created by: <strong>{{ i.creator }}</strong></p>
-            <img src="{{ i.img_url}}">
+            <img src="{{ i.img_url}}" width="200" height="200">
             <input type="hidden" id="titleListing" value="{{ i.title }}">
         </div>
 

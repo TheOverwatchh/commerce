@@ -8,13 +8,38 @@
    
     <hr>
     {% if user.is_authenticated %}
-        <h2 class="mb-5" style="color:#906E0C">Active Listings</h2>
+        {% if filter == True %}
+        <div>
+            <h4 id="login" style="color: #906E0C; text-align: center;">Filter <i class="fas fa-search fa-sm"></i></h4>
+    
+        <form action="{% url 'filter' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input autofocus class="form-control" type="text" name="title" placeholder="title">
+            </div> 
+            <div class="form-group">
+                <select class="form-control" name="category" id="cat">
+                    <option value="car">Car</option>
+                    <option value="food">Food</option>
+                    <option value="clothes">Clothes</option>
+                    <option value="musical instruments">Musical Instruments</option>
+                </select>
+            </div>
+                <input class="btn btn-secondary form-control" type="submit" value="Search">
+        </form>    
+        </div>
+        {% else %}
+        {% endif %}
+        <div>
+            <h2 class="mb-5" style="color:#906E0C">Active Listings</h2>
+        </div>
+
         <ul class="all-auctions">
             {% for auction in auctions %}
                     <li style="list-style: none;" class="auctionTable">
                     <div id="item" class="row">
                         <div class="col-md-5 d-none d-md-block">
-                            <img src="{{ auction.img_url }}" alt="">
+                            <img src="{{ auction.img_url }}" width="200" height="200">
                         </div>
                         <div class="col-md-5 auctionRow">
                             <h4>{{ auction.title }}</h4>  
@@ -37,8 +62,3 @@
  
 </div>
 {% endblock %}
-
-<!-- next implementations:
-    * create a category, where it is specified in the creation of the bid 
-    * implement the search of a item, being able to type the title and filter a category
--->

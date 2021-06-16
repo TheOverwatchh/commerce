@@ -11,7 +11,8 @@ from .models import User, Auction, Bid, Comment, WatchList, ClosedBid
 def index(request):
     all_auctions = Auction.objects.all()
     return render(request, "auctions/index.html", {
-        "auctions": all_auctions
+        "auctions": all_auctions,
+        "filter": False
     })
 
 def login_view(request):
@@ -188,13 +189,16 @@ def createListing(request):
         description = request.POST["description"]
         starting_bid = request.POST["starting_bid"]
         img_url = request.POST["img_url"]
+        category = request.POST["category"]
+        closed = False
         # listings = Auction.objects.all()
         # listingsLength = len(listings)
         #  Attempt to create 
-        listing = Auction(creator, title, description, starting_bid ,starting_bid, img_url)
+        listing = Auction(creator, title, description, starting_bid ,starting_bid, img_url, closed ,category)
         listing.save()
         return render(request, "auctions/index.html", {
-            "auctions": all_listings
+            "auctions": all_listings,
+            "filter": False
         })
        
 
@@ -234,6 +238,27 @@ def closeListing(request, title):
             })
     else:
         return redirect('index')     
+
+def filter(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        category = request.POST["category"]
+        if title:
+            cat = Auction.objects.filter(category=category, title=title)
+            return render(request, "auctions/index.html", {
+                "auctions": cat
+            })
+        else:
+         cat = Auction.objects.filter(category=category)
+         return render(request, "auctions/index.html", {
+             "auctions": cat    
+         })
+    else:
+        all_auctions = Auction.objects.all()
+        return render(request, "auctions/index.html", {
+            "auctions": all_auctions,
+            "filter": True
+        })    
 
 def winnings(request, user):
         cb = ClosedBid.objects.filter(winner=user)

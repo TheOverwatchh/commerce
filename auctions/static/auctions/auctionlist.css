@@ -1,8 +1,6 @@
+
 ul.all-auctions {
-  height: 90vh;
-  white-space: nowrap;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  height: auto;
 }
 
 .auctionTable {

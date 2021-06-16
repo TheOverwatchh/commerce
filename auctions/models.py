@@ -5,6 +5,13 @@ from django.db import models
 class User(AbstractUser):
     pass
 
+categories = (
+        ('cars', 'CARS'),
+        ('food', 'FOOD'), 
+        ('clothes', 'CLOTHES'),
+        ('musical instruments', 'MUSICAL INSTRUMENTS')
+    )
+
 class Auction(models.Model):
     creator = models.CharField(max_length=20, default="Unknown")
     title = models.CharField(max_length=20, primary_key=True)
@@ -13,6 +20,7 @@ class Auction(models.Model):
     starting_bid = models.IntegerField()
     img_url = models.CharField(max_length=420)
     closed = models.CharField(max_length=20, default="False")
+    category = models.CharField(max_length=20,choices=categories, default="cars")
 
     def __str__(self): 
         return self.title
