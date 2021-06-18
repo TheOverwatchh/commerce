@@ -71,12 +71,13 @@
         
         <form action="{% url 'createBid' i.title %}" method="post">
         {% csrf_token %}
-        <h4>Make a Bid <small>minimum of <strong>${{ i.current_price}}</strong></small></h4>
+        <h4>Make a Bid <small>minimum of <strong>${{ i.starting_bid}}</strong></small></h4>
         <div class="d-flex align-items-center">
             <input value="{{i.current_price}}" type="number" min="{{ i.starting_bid }}" name="bid">
             <button type="submit" class="btn btn-success">Submit</button>
         </div>
         </form>
+        <span style="color:#D66464; text-decoration: underline;">{{ message }}</span>
     </div>
     </div> 
     {% endif %}

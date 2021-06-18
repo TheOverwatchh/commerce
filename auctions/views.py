@@ -115,17 +115,24 @@ def createBid(request, title):
     # pegar o item de acordo com o titulo
     item = Auction.objects.get(title=title)
     # alterar o current_price do item
-    item.current_price = request.POST["bid"]
-    item.save()
-    b = Bid()
-    b.creator = request.user.username
-    b.price = request.POST["bid"]
-    b.listing = item
-    b.save()
-    # retornar para a página do item, com o current price alterado
-    return render(request, "auctions/item_page.html", {
-        "i":item
+    bid = request.POST["bid"]
+    if int(bid) <= int(item.current_price):
+        return render(request, "auctions/item_page.html", {
+        "i":item,
+        "message": 'The bid has to be greater than the current price.'
     })
+    else:
+        item.current_price = bid
+        item.save()
+        b = Bid()
+        b.creator = request.user.username
+        b.price = request.POST["bid"]
+        b.listing = item
+        b.save()
+        # retornar para a página do item, com o current price alterado
+        return render(request, "auctions/item_page.html", {
+            "i":item
+        })
 
 def createComment(request, title):
     if request.method == "POST":
